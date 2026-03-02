@@ -1,0 +1,17 @@
+asgiref==3.11.1
+build==1.4.0
+click==8.3.1
+Django==6.0.2
+django-cors-headers==4.9.0
+django-split-settings==1.3.2
+djangorestframework==3.16.1
+djangorestframework_simplejwt==5.5.1
+packaging==26.0
+pip-tools==7.5.3
+psycopg2-binary==2.9.11
+PyJWT==2.11.0
+pyproject_hooks==1.2.0
+python-dotenv==1.2.2
+setuptools==82.0.0
+sqlparse==0.5.5
+wheel==0.46.3
