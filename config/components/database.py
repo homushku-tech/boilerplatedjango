@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DSN = {
-
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
