@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import (
+from authentication.views import (
     RegisterUser,
     LoginUser,
     Verification,

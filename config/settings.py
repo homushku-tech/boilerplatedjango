@@ -9,6 +9,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+IS_PROD = bool(int(os.environ.get('IS_PROD')))
+
 DEBUG = True
 
 WSGI_APPLICATION = 'config.wsgi.application'

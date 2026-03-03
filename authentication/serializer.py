@@ -11,7 +11,7 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.password_validation import validate_password
 
 """local imports """
-from .models import CustomUser
+from authentication.models import CustomUser
 
 
 class RegisterSerializer(serializers.ModelSerializer):

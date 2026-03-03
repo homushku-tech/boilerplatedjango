@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin, UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser, EmailVerificationModel, PasswordResetCodeModel
+from authentication.models import CustomUser, EmailVerificationModel, PasswordResetCodeModel
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):

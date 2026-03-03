@@ -41,7 +41,6 @@ class RegisterUser(CreateAPIView):
     * username: 3-8 символов, разрешены только буквы, цифры, подчеркивания и точки
     * password: минимум 8 символов
 
-    При успешной регистрации код подтверждения отправляется на email пользователя
     """
 
     queryset = CustomUser.objects.all()
@@ -55,14 +54,12 @@ class RegisterUser(CreateAPIView):
 
         self.perform_create(serializer)
 
-        verification_code = generate_strong_6_digit_number()
-        code_data = EmailVerificationModel.objects.create(
-            user=serializer.instance, code=verification_code
-        )
+        #verification_code = generate_strong_6_digit_number()
+        # code_data = EmailVerificationModel.objects.create(
+        #     user=serializer.instance, code=verification_code
+        # )
 
-        # Пользовательские данные ответа
         custom_data = {
-            "registration_success": True,
             "message": "Аккаунт успешно создан.",
             "email": serializer.data["email"],
             "username": serializer.data["username"],
@@ -77,9 +74,8 @@ class RegisterUser(CreateAPIView):
 class LoginUser(APIView):
     """
     Представление для входа пользователей в систему
-
-    * email
-    * password
+    email
+    password
     """
 
     serializer_class = LoginSerializer
@@ -107,7 +103,6 @@ class LoginUser(APIView):
             "is_verified": user_data["is_verified"],
         }
 
-        # Выпуск JWT токенов
         refresh = RefreshToken.for_user(user)
 
         return Response(
@@ -343,7 +338,6 @@ class PasswordReset(APIView):
             if reset_code.code == code:
                 # Хеширование и обновление нового пароля в БД пользователя
                 # Установка кода в БД сброса пароля в NULL
-                # Сохранение
                 user.set_password(raw_password=new_password)
                 user.is_verified = True
                 user.save()

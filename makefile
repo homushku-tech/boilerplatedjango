@@ -1,20 +1,58 @@
+DOCKER_COMPOSE := docker compose --env-file .env
+
+.PHONY: run build migrations migrate shell superuser test stop logs
+
 run:
-    docker-compose up
+	$(DOCKER_COMPOSE) up
+
+run-d:
+	$(DOCKER_COMPOSE) up -d
 
 build:
-    docker-compose build
+	$(DOCKER_COMPOSE) build
+
+stop:
+	$(DOCKER_COMPOSE) stop
+
+down:
+	$(DOCKER_COMPOSE) down -v
 
 migrations:
-    docker-compose run web python manage.py makemigrations
+	$(DOCKER_COMPOSE) exec backend python manage.py makemigrations
 
 migrate:
-    docker-compose run web python manage.py migrate
+	$(DOCKER_COMPOSE) exec backend python manage.py migrate
 
 shell:
-    docker-compose run web python manage.py shell
+	$(DOCKER_COMPOSE) exec backend python manage.py shell
 
 superuser:
-    docker-compose run web python manage.py createsuperuser
+	$(DOCKER_COMPOSE) exec backend python manage.py init_admin
 
 test:
-    docker-compose run web python manage.py test
+	$(DOCKER_COMPOSE) exec backend python manage.py test
+
+logs:
+	$(DOCKER_COMPOSE) logs -f
+
+restart:
+	$(DOCKER_COMPOSE) restart
+
+ps:
+	$(DOCKER_COMPOSE) ps
+
+help:
+	@echo "Доступные команды:"
+	@echo "  make run        - Запустить контейнеры в интерактивном режиме"
+	@echo "  make run-d      - Запустить контейнеры в фоне"
+	@echo "  make build      - Собрать образы"
+	@echo "  make stop       - Остановить контейнеры"
+	@echo "  make down       - Остановить и удалить контейнеры"
+	@echo "  make migrations - Создать миграции"
+	@echo "  make migrate    - Применить миграции"
+	@echo "  make shell      - Открыть shell Django"
+	@echo "  make superuser  - Создать суперпользователя"
+	@echo "  make test       - Запустить тесты"
+	@echo "  make logs       - Показать логи"
+	@echo "  make restart    - Перезапустить контейнеры"
+	@echo "  make ps         - Показать состояние контейнеров"

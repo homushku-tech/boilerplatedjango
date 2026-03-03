@@ -13,14 +13,14 @@ class CustomUser(AbstractUser):
         validators=[
             RegexValidator(
                 regex=r"^[a-zA-Z0-9_.]+$",
-                message="Only letters, numbers, underscores and dots are allowed.",
+                message="Разрешены только буквы, цифры, подчеркивания и точки.",
             )
         ],
     )
     is_verified = models.BooleanField(default=False)
 
-    USERNAME_FIELD = "email"  # now use email to login
-    REQUIRED_FIELDS = ["username"]  # required when creating superuser
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"] 
 
     def __str__(self):
         return f"User with username: {self.username} and email: {self.email}"
