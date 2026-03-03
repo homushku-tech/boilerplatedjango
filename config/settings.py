@@ -13,9 +13,14 @@ DEBUG = True
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LANGUAGE_CODE = 'ru-RU'
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Custom User model
+AUTH_USER_MODEL = "authentication.CustomUser"
 
 include(
     'components/apps.py',
@@ -27,6 +32,8 @@ include(
     'components/validator.py',
     'components/csrf.py',
     'components/cors.py',
-    'components/auth.py',
+    'components/rest_framework.py',
+    'components/swagger.py',
     'components/email.py',
+    'components/jwt.py',
 )

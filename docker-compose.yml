@@ -19,8 +19,6 @@ services:
   database:
     image: postgres:17
     container_name: boilerplate_db
-    ports:
-      - '${DB_PORT}:5432'
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
@@ -33,7 +31,5 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
 volumes:
   postgres_data:
-    name: boilerplate_postgres_data 
