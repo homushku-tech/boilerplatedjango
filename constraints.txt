@@ -9,6 +9,8 @@ asgiref==3.11.1
     #   -r requirements.txt
     #   django
     #   django-cors-headers
+astroid==2.15.8
+    # via -r requirements.txt
 attrs==25.4.0
     # via
     #   -r requirements.txt
@@ -66,14 +68,30 @@ jsonschema-specifications==2025.9.1
     # via
     #   -r requirements.txt
     #   jsonschema
+lazy-object-proxy==1.12.0
+    # via
+    #   -r requirements.txt
+    #   astroid
+mccabe==0.7.0
+    # via -r requirements.txt
+mypy-extensions==1.1.0
+    # via -r requirements.txt
 packaging==26.0
     # via
     #   -r requirements.txt
     #   build
     #   wheel
+pathspec==1.0.4
+    # via -r requirements.txt
 pip-tools==7.5.3
     # via -r requirements.txt
+platformdirs==4.9.2
+    # via -r requirements.txt
 psycopg2-binary==2.9.11
+    # via -r requirements.txt
+pycodestyle==2.11.1
+    # via -r requirements.txt
+pyflakes==3.1.0
     # via -r requirements.txt
 pyjwt==2.11.0
     # via
@@ -86,6 +104,8 @@ pyproject-hooks==1.2.0
     #   pip-tools
 python-dotenv==1.2.2
     # via -r requirements.txt
+pytokens==0.4.1
+    # via -r requirements.txt
 pyyaml==6.0.3
     # via
     #   -r requirements.txt
@@ -96,24 +116,20 @@ referencing==0.37.0
     #   jsonschema
     #   jsonschema-specifications
 requests==2.32.5
-    # via
-    #   -r requirements.txt
-    #   resend
-resend==2.23.0
     # via -r requirements.txt
 rpds-py==0.30.0
     # via
     #   -r requirements.txt
     #   jsonschema
     #   referencing
+ruff==0.15.4
+    # via -r requirements.txt
 sqlparse==0.5.5
     # via
     #   -r requirements.txt
     #   django
 typing-extensions==4.15.0
-    # via
-    #   -r requirements.txt
-    #   resend
+    # via -r requirements.txt
 uritemplate==4.2.0
     # via
     #   -r requirements.txt
@@ -126,6 +142,10 @@ wheel==0.46.3
     # via
     #   -r requirements.txt
     #   pip-tools
+wrapt==1.17.3
+    # via
+    #   -r requirements.txt
+    #   astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

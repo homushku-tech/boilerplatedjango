@@ -1,4 +1,5 @@
 DOCKER_COMPOSE := docker compose --env-file .env
+SETUP_CFG := pyproject.toml
 
 .PHONY: run build migrations migrate shell superuser test stop logs
 
@@ -41,6 +42,12 @@ restart:
 ps:
 	$(DOCKER_COMPOSE) ps
 
+lint:
+	$(DOCKER_COMPOSE) exec backend ruff check --config $(SETUP_CFG) .
+
+lint:
+	$(DOCKER_COMPOSE) exec backend ruff format --config $(SETUP_CFG) .
+
 help:
 	@echo "Доступные команды:"
 	@echo "  make run        - Запустить контейнеры в интерактивном режиме"
@@ -56,3 +63,5 @@ help:
 	@echo "  make logs       - Показать логи"
 	@echo "  make restart    - Перезапустить контейнеры"
 	@echo "  make ps         - Показать состояние контейнеров"
+	@echo "  make lint       - Запустить линтер"
+	@echo "  make format     - Запустить форматер"

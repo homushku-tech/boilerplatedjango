@@ -1,11 +1,9 @@
-from django.core.management.base import BaseCommand
-
 from authentication.models import CustomUser
+from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-
-    def handle(self, *args, **options):
+    def handle(self):
         try:
             if CustomUser.objects.filter(username="admin").exists():
                 print("Admin acc already exists")
@@ -21,4 +19,4 @@ class Command(BaseCommand):
             admin.save()
             print("Admin acc create successfully")
         except Exception as e:
-            print(f"Admin acc creating FAIL. \n " f"Exception: {e}")
+            print(f"Admin acc creating FAIL. \n Exception: {e}")

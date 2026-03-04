@@ -1,0 +1,52 @@
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+exclude = [
+    ".venv",
+    "venv",
+    "__pycache__",
+    "migrations",
+    "static",
+    "media",
+    "node_modules",
+    ".git",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F", "I", "B", "C4", "DJ", "S", "T20", "SIM", "ARG", "RET", "PT"
+]
+ignore = [
+    "D100", "D104", "D107", "D400", "B008", "T201", "S105", "B904" 
+]
+
+[tool.ruff.lint.per-file-ignores]
+"*/__init__.py" = ["F401"]
+"tests/fixtures/__init__.py" = ["F401", "F403"]
+"tests/conftest.py" = ["F401", "F403"]
+"*/migrations/*.py" = ["E501", "F401", "F403", "DJ01"]
+"config/settings.py" = ["E501", "B008"]
+"manage.py" = ["E501"]
+
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+force-sort-within-sections = true
+order-by-type = false
+combine-as-imports = true
+section-order = [
+    "future",
+    "standard-library",
+    "local-folder",
+]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "django.conf.settings",
+    "os.getenv",
+]

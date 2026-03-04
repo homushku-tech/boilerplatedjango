@@ -1,12 +1,11 @@
+from authentication.models import CustomUser
+from authentication.serializer import LoginSerializer, RegisterSerializer
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-
-from authentication.models import CustomUser
-from authentication.serializer import LoginSerializer, RegisterSerializer
 
 
 @extend_schema(tags=["Профиль"])
@@ -21,7 +20,7 @@ class RegisterUser(CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = RegisterSerializer
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request):
         serializer = self.get_serializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
@@ -51,9 +50,7 @@ class LoginUser(APIView):
 
     def post(self, request):
 
-        serializer_class = LoginSerializer(
-            data=request.data, context={"request": request}
-        )
+        serializer_class = LoginSerializer(data=request.data, context={"request": request})
 
         serializer_class.is_valid(raise_exception=True)
 

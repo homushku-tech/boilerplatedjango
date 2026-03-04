@@ -1,10 +1,9 @@
 import re
 
+from authentication.models import CustomUser
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-
-from authentication.models import CustomUser
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -12,10 +11,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ["email", "username", "password"]
         extra_kwargs = {
-            "password": {"write_only": True},
+            "password": {"write_only": True},  # Только для записи
             "username": {
                 "error_messages": {
-                    "max_length": "Username must be between 3 and 8 characters long."
+                    "max_length": "Имя пользователя должно содержать от 3 до 8 символов."
                 }
             },
         }
@@ -33,16 +32,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         if not re.match(r"^[a-zA-Z0-9_.]+$", username):
             raise serializers.ValidationError(
-                "Only letters, numbers, underscores, and dots are allowed."
+                "Разрешены только буквы, цифры, символы подчеркивания и точки."
             )
 
         if len(username) < 3 or len(username) > 8:
             raise serializers.ValidationError(
-                "Username must be between 3 to 8 characters long."
+                "Имя пользователя должно содержать от 3 до 8 символов."
             )
 
         if CustomUser.objects.filter(username__iexact=username).exists():
-            raise serializers.ValidationError("User with this username already exists.")
+            raise serializers.ValidationError("Пользователь с таким именем уже существует.")
 
         return username
 
@@ -50,42 +49,38 @@ class RegisterSerializer(serializers.ModelSerializer):
         email = value.lower()
 
         if CustomUser.objects.filter(email__iexact=email).exists():
-            raise serializers.ValidationError("User with this email already exists.")
+            raise serializers.ValidationError("Пользователь с таким email уже существует.")
 
         return email
 
     def create(self, validated_data):
-        user = CustomUser(
-            email=validated_data["email"], username=validated_data["username"]
-        )
+        user = CustomUser(email=validated_data["email"], username=validated_data["username"])
         user.set_password(validated_data["password"])
         user.save()
         return user
 
 
 class LoginSerializer(serializers.Serializer):
-    identifier = serializers.CharField()
-    password = serializers.CharField(write_only=True)
+    identifier = serializers.CharField()  # Идентификатор (email или имя пользователя)
+    password = serializers.CharField(write_only=True)  # Только для записи
 
     def validate(self, attrs):
         identifier = attrs.get("identifier")
         password = attrs.get("password")
 
         if not identifier or not password:
-            raise serializers.ValidationError(
-                "Both identifier and password are required."
-            )
+            raise serializers.ValidationError("Необходимо указать идентификатор и пароль.")
 
         if "@" in identifier:
             try:
                 user_obj = CustomUser.objects.get(email__iexact=identifier)
             except CustomUser.DoesNotExist:
-                raise serializers.ValidationError("Invalid email or password.")
+                raise serializers.ValidationError("Неверный email или пароль.")
         else:
             try:
                 user_obj = CustomUser.objects.get(username__iexact=identifier)
             except CustomUser.DoesNotExist:
-                raise serializers.ValidationError("Invalid username or password.")
+                raise serializers.ValidationError("Неверное имя пользователя или пароль.")
 
         user = authenticate(
             request=self.context.get("request"),
@@ -94,7 +89,7 @@ class LoginSerializer(serializers.Serializer):
         )
 
         if not user:
-            raise serializers.ValidationError("Invalid credentials")
+            raise serializers.ValidationError("Неверные учетные данные")
 
         attrs["user"] = user
         return attrs
