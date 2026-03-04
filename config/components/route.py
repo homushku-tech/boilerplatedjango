@@ -1,4 +1,3 @@
+ROOT_URLCONF = "config.urls"
 
-ROOT_URLCONF = 'config.urls'
-
-STATIC_URL = 'static/'
+STATIC_URL = "static/"

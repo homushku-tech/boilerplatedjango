@@ -7,13 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0001_initial'),
+        ("authentication", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='username',
-            field=models.CharField(max_length=12, unique=True, validators=[django.core.validators.RegexValidator(message='Разрешены только буквы, цифры, подчеркивания и точки.', regex='^[a-zA-Z0-9_.]+$')]),
+            model_name="customuser",
+            name="username",
+            field=models.CharField(
+                max_length=12,
+                unique=True,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message="Разрешены только буквы, цифры, подчеркивания и точки.",
+                        regex="^[a-zA-Z0-9_.]+$",
+                    )
+                ],
+            ),
         ),
     ]
