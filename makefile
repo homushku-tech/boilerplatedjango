@@ -42,10 +42,10 @@ restart:
 ps:
 	$(DOCKER_COMPOSE) ps
 
-lint:
+check:
 	$(DOCKER_COMPOSE) exec backend ruff check --config $(SETUP_CFG) .
 
-lint:
+format:
 	$(DOCKER_COMPOSE) exec backend ruff format --config $(SETUP_CFG) .
 
 help:
